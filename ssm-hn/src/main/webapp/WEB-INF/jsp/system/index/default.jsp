@@ -105,10 +105,6 @@ setTimeout("top.hangge()",500);
 										<img style="cursor:pointer;" alt="模版1" src="static/images/mo1.png" width="200px" onclick="setMoban('createHtml')">
 										<input type="radio" id="moban1" name="moban"  onclick="setMoban('createHtml')"/>
 									</td>
-									<td class="center">模版2
-										<img style="cursor:pointer;" alt="模版1" src="static/images/mo2.png" width="200px"  onclick="setMoban('createHtml2')">
-										<input type="radio" id="moban2" name="moban" onclick="setMoban('createHtml2')" />
-									</td>
 								</tr>
 							<table>
 							

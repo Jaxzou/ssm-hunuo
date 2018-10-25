@@ -43,10 +43,9 @@
 	           	/app**/** 					= anon
 	           	/web**/**					= anon
 	           	/fh_static_1/**				= anon
-	           	/fh_static_2/**				= anon
 	           	/plugins/ueditor/jsp/**		= anon
 	           	/index.html					= anon
-	           	/fhadmin**/**				= anon
+	           	/admin**/**				    = anon
 	           	/weixin/** 					= anon
 	           	/**							= authc
 				</value>

@@ -52,7 +52,7 @@ public class LoginController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/fhadmin/login")
+	@RequestMapping(value="/admin/login")
 	public ModelAndView toLogin()throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();

@@ -213,7 +213,7 @@
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
 							<tr>
-								<td colspan="10">会员功能暂无用处，自己根据自己的需求二次开发应用具体场景</td>
+								<td colspan="10">会员功能暂未开发</td>
 							</tr>
 						</table>
 						</div>

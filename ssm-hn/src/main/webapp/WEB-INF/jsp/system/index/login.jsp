@@ -140,7 +140,7 @@
 			</form>
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © FHqq313596790 2100</span></font>
+					<font color="white"><span id="nameerr">Copyright © HUNUO 2018</span></font>
 				</div>
 			</div>
 		</div>
@@ -219,7 +219,7 @@
 			</form>
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © FHqq313596790 2100</span></font>
+					<font color="white"><span id="nameerr">Copyright © HUNUO 2018</span></font>
 				</div>
 			</div>
 		</div>

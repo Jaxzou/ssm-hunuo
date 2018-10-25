@@ -103,6 +103,7 @@ public class MenuController extends BaseController {
 			mv.addObject("msg","failed");
 		}
 		mv.setViewName("redirect:?MSG='change'&MENU_ID="+menu.getPARENT_ID()); //保存成功跳转到列表页面
+		//mv.setViewName("system/menu/menu_ztree"); //保存成功跳转到列表页面
 		return mv;
 	}
 	
@@ -176,7 +177,8 @@ public class MenuController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		mv.setViewName("redirect:?MSG='change'&MENU_ID="+menu.getPARENT_ID()); //保存成功跳转到列表页面
+		//mv.setViewName("redirect:?MSG='change'&MENU_ID="+menu.getPARENT_ID()); //保存成功跳转到列表页面
+		mv.setViewName("system/menu/menu_ztree"); //保存成功跳转到列表页面
 		return mv;
 	}
 	
