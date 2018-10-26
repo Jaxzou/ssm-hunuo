@@ -80,7 +80,7 @@ public class ArticleKindService implements ArticleKindManager {
 	}
 
 	@Override
-	public Map<String, Object> getList() throws Exception {
+	public Map<String,Object> getList() throws Exception {
 		Map<String,Object> map = new HashMap<String, Object>();
 		List<PageData> articleKindList = (List<PageData>) dao.findForList("ArticleKindMapper.listAll", null);
 		map.put("articleKindList",articleKindList);

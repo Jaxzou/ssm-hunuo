@@ -47,6 +47,11 @@ public class ArticleKindController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+
+		if(pd.get("STATUS")==null || "".equals(pd.get("STATUS"))){
+			pd.put("STATUS","off");
+		}
+
 		articlekindService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -79,6 +84,9 @@ public class ArticleKindController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		if(pd.get("STATUS")==null || "".equals(pd.get("STATUS"))){
+			pd.put("STATUS","off");
+		}
 		articlekindService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -88,7 +96,8 @@ public class ArticleKindController extends BaseController {
 	/**
 	 * 获取分类数据
 	 */
-	@RequestMapping(value = "getList")
+	@RequestMapping(value = "/getList")
+	@ResponseBody
 	public Map<String,Object> getList() throws Exception {
 		return articlekindService.getList();
 	}
@@ -187,10 +196,10 @@ public class ArticleKindController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("备注1");	//1
-		titles.add("备注2");	//2
-		titles.add("备注3");	//3
-		titles.add("备注4");	//4
+		titles.add("ID");	//1
+		titles.add("NAME");	//2
+		titles.add("PARENT_ID");	//3
+		titles.add("STATUS");	//4
 		dataMap.put("titles", titles);
 		List<PageData> varOList = articlekindService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
