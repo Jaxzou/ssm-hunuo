@@ -9,7 +9,8 @@
 		<param-value>
 			classpath:spring/ApplicationContext-main.xml,
 			classpath:spring/ApplicationContext-dataSource.xml,
-			classpath:spring/ApplicationContext-shiro.xml
+			classpath:spring/ApplicationContext-shiro.xml,
+			classpath:spring/ApplicationContext-quartz.xml
 		</param-value>
 	</context-param>
 	<context-param>

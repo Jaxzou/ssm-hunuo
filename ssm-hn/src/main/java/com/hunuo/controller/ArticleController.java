@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 
 import com.hunuo.entity.vo.Page;
 import com.hunuo.service.ArticleManager;
+import com.hunuo.service.impl.ArticleKindService;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -38,6 +39,9 @@ public class ArticleController extends BaseController {
 	@Resource(name="articleService")
 	private ArticleManager articleService;
 
+	@Resource(name="articlekindService")
+    private ArticleKindService articleKindService;
+
 
 	/**保存
 	 * @param
@@ -50,19 +54,6 @@ public class ArticleController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("ADD_USER",Jurisdiction.getUsername());
-		pd.put("ADD_TIME",new Date());
-		pd.put("MOD_USER",Jurisdiction.getUsername());
-		pd.put("MOD_TIME",new Date());
-		String status = (String) pd.get("STATUS");
-		if(status == null || "".equals("")){
-			pd.put("STATUS","off");
-		}
-		if( status == "on"){
-			//获取发布时间，创建定时任务
-			String RELEASE_TIME = (String) pd.get("RELEASE");
-			System.out.println("创建了定时任务");
-		}
 		articleService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -118,7 +109,18 @@ public class ArticleController extends BaseController {
 		}
 		page.setPd(pd);
 		List<PageData>	varList = articleService.list(page);	//列出Article列表
-		mv.setViewName("web/article/article_list");
+
+        List<PageData> articleKindList = articleKindService.listAll(null);
+        for (PageData pageData : varList) {
+            for (PageData data : articleKindList) {
+                if(pageData.get("ARTCLE_KIND_ID") == data.get("ID")){
+                    pageData.put("ARTCLE_KIND_ID",data.get("NAME"));
+                    break;
+                }
+            }
+        }
+
+        mv.setViewName("web/article/article_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限

@@ -2,9 +2,6 @@ package com.hunuo.util;
 
 /** 
  * 说明：
- * 创建人：FH Q313596790
- * 修改时间：2015年11月24日
- * @version
  */
 public class Constants {
 	

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.hunuo.util.QuartzManager;
 
 
 /** 
@@ -217,7 +218,6 @@ public class TimingBackUpController extends BaseController {
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
-		pd = this.getPageData();
 		pd = this.getPageData();
 		List<PageData> pdList = new ArrayList<PageData>();
 		int STATUS = Integer.parseInt(pd.get("STATUS").toString());

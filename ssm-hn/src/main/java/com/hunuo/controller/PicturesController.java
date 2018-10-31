@@ -377,8 +377,9 @@ public class PicturesController extends BaseController {
         PageData pd = new PageData();
         if (Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
             if (null != file && !file.isEmpty()) {
-                String filePath = PathUtil.getClasspath() + Const.FILEPATHIMG + ffile;        //文件上传路径
-                fileName = FileUpload.fileUp(file, filePath, file.getOriginalFilename());                //执行上传
+                String filePath = PathUtil.getClasspath() + Const.FILEPATHFILEOA + ffile;        //文件上传路径
+                fileName = file.getOriginalFilename().substring(0,file.getOriginalFilename().indexOf("."));
+                fileName = FileUpload.fileUp(file, filePath, fileName);                //执行上传
             } else {
                 System.out.println("上传失败");
             }

@@ -55,7 +55,7 @@
                                     <tr>
                                         <td style="width:75px;text-align: right;padding-top: 13px;">详细内容:</td>
                                         <td>
-                                            <textarea id="CONTENT" name="CONTENT" style="width:1200px;height:400px;visibility:hidden;"></textarea>
+                                            <textarea id="CONTENT" name="CONTENT" style="width:1200px;height:400px;visibility:hidden;">${pd.CONTENT}</textarea>
                                         </td>
                                     </tr>
 
@@ -66,7 +66,7 @@
                                             <div class="col-lg-10">
                                                 <div class="upload_1">
                                                     <div class="uploadArea_1">
-                                                        <img width="300" height="200" id="PICPATH">
+                                                        <img width="300" height="200" id="PICPATH" src="${pd.PIC}">
                                                     </div>
                                                     <div class="left">
                                                         <div class="uploadProgressBar"></div>
@@ -78,7 +78,7 @@
                                                     </div>
                                                     <div class="clear"></div>
                                                 </div>
-                                                <input data-val="true" data-val-maxlength-max="50" id="PIC" name="PIC" type="hidden">
+                                                <input data-val="true" data-val-maxlength-max="50" id="PIC" name="PIC" value="${pd.PIC}" type="hidden">
                                                 <span class="field-validation-valid" data-valmsg-for="QrCode" data-valmsg-replace="true"></span>
                                             </div>
                                         </td>
@@ -99,10 +99,10 @@
                                                     </div>
                                                     <div class="clear"></div>
                                                 </div>
-                                                <input data-val="true" data-val-maxlength-max="50" id="FILEURL" name="FILE" type="hidden">
+                                                <input data-val="true" data-val-maxlength-max="50" id="FILEURL" name="FILE" value="${pd.FILE}" type="hidden">
                                                 <span class="field-validation-valid" data-valmsg-for="QrCode" data-valmsg-replace="true"></span>
                                                 请上传 zip、rar 格式文件
-                                                <p/><span id="FILEPATH" style="color: red;"></span>
+                                                <p/><span id="FILEPATH" style="color: red;">${pd.FILE}</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -178,6 +178,20 @@
     var permission = "${pd.IS_USER}";
 
     $(function () {
+        var status = '${pd.STATUS}';
+        var isNew = '${pd.IS_NEW}';
+        var isRecommend = '${pd.IS_RECOMMEND}';
+
+        if(status == 'on'){
+            $('#STATUS').prop("checked",true);
+        }
+        if(isNew == 'on'){
+            $('#IS_NEW').prop("checked",true);
+        }
+        if(isRecommend == 'on'){
+            $('#IS_RECOMMEND').prop("checked",true);
+        }
+
         $.ajax({
             type: 'get',
             url: '/articlekind/getList',
@@ -195,7 +209,7 @@
                 });
                 $("#ARTCLE_KIND_ID").append(c1 + c2);
             }
-        })
+        });
 
         if(permission == 1 && permission != ""){
             $('#IS_USER').append("<option value=\"1\">所有人可访问</option>\n" +
@@ -252,7 +266,6 @@
             ,exts:'zip|rar'
             ,url: '/pictures/saveFile' //上传接口
             ,done: function(res, index, upload){
-                alert(res.PATH);
                 layer.msg("上传成功");
                 $("#FILEURL").val("/uploadFiles/uploadImgs/" +res.PATH);
                 $("#FILEPATH").html(res.PATH);
@@ -317,7 +330,7 @@
             $("#NOTES").focus();
             return false;
         }
-        if ($("#STATUS").val() != "" && $("#").val() == "") {
+        if ($("#STATUS").val() == "on" && $("#RELEASE_TIME").val() == "") {
             $("#STATUS").tips({
                 side: 3,
                 msg: '请选择立即发布或设定发布时间',

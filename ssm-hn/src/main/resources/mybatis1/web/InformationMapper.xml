@@ -94,9 +94,8 @@
 			ABOUTUS1 = #{ABOUTUS1},
 			ABOUTUS2 = #{ABOUTUS2},
 			NEW1 = #{NEW1},
-			NEW2 = #{NEW2},
-		INFORMATION_ID = INFORMATION_ID
-		where 
+			NEW2 = #{NEW2}
+		where
 		INFORMATION_ID = #{INFORMATION_ID}
 	</update>
 	

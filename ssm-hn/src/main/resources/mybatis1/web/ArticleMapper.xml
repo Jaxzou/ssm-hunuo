@@ -42,7 +42,7 @@
 		#{IS_RECOMMEND},	
 		#{IS_USER},	
 		#{STATUS},
-		#{RELEASE_TIME	}
+		#{RELEASE_TIME}
 	</sql>
 	
 	<!-- 新增-->
@@ -80,14 +80,16 @@
 			IS_NEW = #{IS_NEW},
 			IS_RECOMMEND = #{IS_RECOMMEND},
 			IS_USER = #{IS_USER},
-			STATUS = #{STATUS}
+			STATUS = #{STATUS},
+			RELEASE_TIME = #{RELEASE_TIME}
 		where 
 		ID = #{ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
-		select 
+		select
+		ID,
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
@@ -98,6 +100,7 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
+		ID,
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
@@ -105,6 +108,7 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
+				TITLE LIKE CONCAT(CONCAT('%',#{pd.keywords}),'%')
 				<!--	根据需求自己加检索条件
 					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
@@ -117,6 +121,7 @@
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
+		ID,
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
@@ -127,11 +132,21 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			ARTICLE_ID in
+			ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>
 	</delete>
+
+	<!--修改发布状态-->
+	<update id="updateStatus" parameterType="Date">
+		UPDATE
+		<include refid="tableName"></include>
+		SET
+		STATUS = 'on'
+		WHERE
+		TIMESTAMPDIFF(MINUTE,sysdate(),RELEASE_TIME) IN (0,1,2,3,4,5)
+	</update>
 	
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.hunuo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.hunuo.entity.vo.Page;
@@ -51,6 +52,12 @@ public interface ArticleManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
+
+	/**
+	 * 定时修改发布状态
+	 * @throws Exception
+	 */
+	public void updataStatus()throws Exception;
 	
 }
 

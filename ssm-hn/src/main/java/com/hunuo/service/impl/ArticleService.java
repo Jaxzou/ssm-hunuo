@@ -1,10 +1,12 @@
 package com.hunuo.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 
 import com.hunuo.entity.vo.Page;
 import com.hunuo.service.ArticleManager;
+import com.hunuo.util.Jurisdiction;
 import org.springframework.stereotype.Service;
 import com.hunuo.dao.DaoSupport;
 import com.hunuo.util.PageData;
@@ -24,6 +26,26 @@ public class ArticleService implements ArticleManager {
 	 * @throws Exception
 	 */
 	public void save(PageData pd)throws Exception{
+		pd.put("ADD_USER", Jurisdiction.getUsername());
+		pd.put("ADD_TIME",new Date());
+		pd.put("MOD_USER",Jurisdiction.getUsername());
+		pd.put("MOD_TIME",new Date());
+		if(pd.get("IS_NEW") == null){
+			pd.put("IS_NEW","off");
+		}
+		if(pd.get("IS_RECOMMEND") == null){
+			pd.put("IS_RECOMMEND","off");
+		}
+		String status = (String) pd.get("STATUS");
+		String releaseTime = (String) pd.get("RELEASE_TIME");
+		if(status == null || "".equals(status)){
+			pd.put("STATUS","off");
+			pd.put("RELEASE_TIME",new Date());
+		}
+		if( releaseTime != null){
+			//获取发布时间，创建定时任务
+			System.out.println("创建了定时任务" + releaseTime);
+		}
 		dao.save("ArticleMapper.save", pd);
 	}
 	
@@ -40,6 +62,24 @@ public class ArticleService implements ArticleManager {
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception{
+		pd.put("MOD_USER",Jurisdiction.getUsername());
+		pd.put("MOD_TIME",new Date());
+		if(pd.get("IS_NEW") == null){
+			pd.put("IS_NEW","off");
+		}
+		if(pd.get("IS_RECOMMEND") == null){
+			pd.put("IS_RECOMMEND","off");
+		}
+		String status = (String) pd.get("STATUS");
+		String RELEASE_TIME = (String) pd.get("RELEASE_TIME");
+		if(status == null || "".equals(status)){
+			pd.put("STATUS","off");
+			pd.put("RELEASE_TIME",new Date());
+		}
+		if( status == "on" && RELEASE_TIME != null){
+			//获取发布时间，创建定时任务
+			System.out.println("创建了定时任务" + RELEASE_TIME);
+		}
 		dao.update("ArticleMapper.edit", pd);
 	}
 	
@@ -76,6 +116,15 @@ public class ArticleService implements ArticleManager {
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("ArticleMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	/**
+	 * 定时修改发布状态
+	 * @throws Exception
+	 */
+	@Override
+	public void updataStatus() throws Exception {
+		dao.update("ArticleMapper.updateStatus",null);
+	}
+
 }
 
