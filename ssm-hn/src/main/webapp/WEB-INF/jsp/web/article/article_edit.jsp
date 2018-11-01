@@ -132,7 +132,7 @@
 
                                     <tr id="sample" style="display:none">
                                         <td style="width:75px;text-align: right;padding-top: 13px;">发布时间</td>
-                                        <td><input id="RELEASE_TIME" name="RELEASE_TIME"></td>
+                                        <td><input id="RELEASE_TIME" name="RELEASE_TIME" value="${pd.RELEASE_TIME}"></td>
                                     </tr>
 
                                     <tr>
@@ -184,6 +184,9 @@
 
         if(status == 'on'){
             $('#STATUS').prop("checked",true);
+            var tr1 = document.getElementById("sample");
+            //选中打开发布时间选择
+            tr1.removeAttribute("style");
         }
         if(isNew == 'on'){
             $('#IS_NEW').prop("checked",true);
@@ -330,7 +333,8 @@
             $("#NOTES").focus();
             return false;
         }
-        if ($("#STATUS").val() == "on" && $("#RELEASE_TIME").val() == "") {
+        var status = $("#STATUS").is(':checked');
+        if (status && $("#RELEASE_TIME").val() == "") {
             $("#STATUS").tips({
                 side: 3,
                 msg: '请选择立即发布或设定发布时间',

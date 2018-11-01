@@ -42,7 +42,7 @@ public class FileUpload {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	private static String copyFile(InputStream in, String dir, String realName)
+	public static String copyFile(InputStream in, String dir, String realName)
 			throws IOException {
 		File file = mkdirsmy(dir,realName);
 		FileUtils.copyInputStreamToFile(in, file);

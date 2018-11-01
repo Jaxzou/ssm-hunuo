@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import com.hunuo.entity.vo.Page;
 import com.hunuo.service.ArticleManager;
 import com.hunuo.util.Jurisdiction;
+import com.hunuo.util.UpdateImg;
 import org.springframework.stereotype.Service;
 import com.hunuo.dao.DaoSupport;
 import com.hunuo.util.PageData;
@@ -76,10 +77,12 @@ public class ArticleService implements ArticleManager {
 			pd.put("STATUS","off");
 			pd.put("RELEASE_TIME",new Date());
 		}
-		if( status == "on" && RELEASE_TIME != null){
-			//获取发布时间，创建定时任务
-			System.out.println("创建了定时任务" + RELEASE_TIME);
+		if( RELEASE_TIME == null && status == "on"){
+			pd.put("RELEASE_TIME",new Date());
 		}
+		String content = UpdateImg.getImgStr((String) pd.get("CONTENT"));
+		pd.put("CONTENT",content);
+
 		dao.update("ArticleMapper.edit", pd);
 	}
 	

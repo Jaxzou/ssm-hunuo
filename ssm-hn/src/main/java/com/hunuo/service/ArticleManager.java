@@ -22,13 +22,13 @@ public interface ArticleManager{
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception;
-	
+
 	/**修改
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception;
-	
+
 	/**列表
 	 * @param page
 	 * @throws Exception

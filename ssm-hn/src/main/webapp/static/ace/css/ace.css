@@ -10,7 +10,7 @@ body {
   font-family: 'Open Sans';
   font-size: 13px;
   color: #393939;
-  line-height: 1.5;
+  /*line-height: 1.5*/
 }
 .main-container:before {
   display: block;

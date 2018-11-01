@@ -19,22 +19,21 @@
 </head>
 <body class="no-skin">
 <!-- /section:basics/navbar.layout -->
-<div class="main-container" id="main-container">
+<div class="main-container" id="main-container" overflow:hidden>
 	<!-- /section:basics/sidebar -->
 	<div class="main-content">
 		<div class="main-content-inner">
 			<div class="page-content">
 				<div class="row">
 					<div class="col-xs-12">
-					
+
 					<form action="aboutus/${msg }.do" name="Form" id="Form" method="post">
 						<input type="hidden" name="ABOUTUS_ID" id="ABOUTUS_ID" value="${pd.ABOUTUS_ID}"/>
-						<textarea style="display: none;" name="CONTENT" id="CONTENT" >${pd.CONTENT}</textarea>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
 								<td>
-								  <script id="editor" type="text/plain" style="width:96%;height:420px;">${pd.CONTENT}</script>
+									<textarea id="CONTENT" name="CONTENT" style="width:1200px;height:400px;visibility:hidden;">${pd.CONTENT}</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -63,16 +62,18 @@
 	<!-- 页面底部js¨ -->
 	<%@ include file="../../system/index/foot.jsp"%>
 	<!-- 百度富文本编辑框-->
-	<script type="text/javascript" charset="utf-8">window.UEDITOR_HOME_URL = "<%=path%>/plugins/ueditor/";</script>
-	<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.config.js"></script>
-	<script type="text/javascript" charset="utf-8" src="plugins/ueditor/ueditor.all.js"></script>
-	<!-- 百度富文本编辑框-->
+	<!-- 富文本编辑器 -->
+	<link rel="stylesheet" href="static/kindeditor/themes/default/default.css"/>
+	<script charset="utf-8" type="text/javascript" src="static/kindeditor/kindeditor-all.js"></script>
+	<script charset="utf-8" type="text/javascript" src="static/kindeditor/lang/zh-CN.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
 		//保存
 		function save(){
+            // 将编辑器的HTML数据同步到textarea
+            editor.sync();
 			$("#CONTENT").val(getContent());
 			if($("#CONTENT").val()==""){
 				$("#CONTENT").tips({
@@ -88,18 +89,23 @@
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
 		}
-		
-		//百度富文本
-		setTimeout("ueditor()",500);
-		function ueditor(){
-			UE.getEditor('editor');
-		}
-		//ueditor有标签文本
-		function getContent() {
-		    var arr = [];
-		    arr.push(UE.getEditor('editor').getContent());
-		    return arr.join("");
-		}
+
+        KindEditor.ready(function (K) {
+            KindEditor.ready(function (K) {
+                window.editor = K.create('textarea[name="CONTENT"]', {
+                    //指定上传文件请求的url。
+                    uploadJson: '/pictures/savePic',
+                    //允许上传图片
+                    allowImageUpload: true,
+                    //修改图片空间的地址
+                    fileManagerJson:'/pictures/fileManager',
+                    //允许使用图片空间
+                    allowFileManager : true,
+                    width:"100%",
+					height:"690px"
+                });
+            });
+        });
 		</script>
 </body>
 </html>
